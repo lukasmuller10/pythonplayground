@@ -8,16 +8,21 @@ import cv2 as cv
 # cv.waitKey(0)
 
 #READING VIDEOS
-# capture = cv.VideoCapture('./Resources/Videos/dog.mp4') #input 0 for webcam
+capture = cv.VideoCapture(0) #input 0 for webcam
 
-# while True:
-#     isTrue, frame = capture.read()
-#     cv.imshow('video',frame)
+while True:
+    isTrue, frame = capture.read()
+    canny= cv.Canny(frame, 125, 125)
+    dilated = cv.dilate(canny,(7,7),iterations=3)
 
-#     if cv.waitKey(20) & 0xFF == ord('d'):
-#         break
+    cv.imshow('dilated boston', dilated)
 
-# capture.release()
-# cv.destroyAllWindows()
+    cv.imshow('video',frame)
+
+    if cv.waitKey(20) & 0xFF == ord('d'):
+        break
+
+capture.release()
+cv.destroyAllWindows()
 
 
