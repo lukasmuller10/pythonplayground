@@ -12,10 +12,15 @@ capture = cv.VideoCapture(0) #input 0 for webcam
 
 while True:
     isTrue, frame = capture.read()
+    
+    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     canny= cv.Canny(frame, 125, 125)
     dilated = cv.dilate(canny,(7,7),iterations=3)
+    ret, thresh = cv.threshold(gray,125,255,cv.THRESH_BINARY)
 
     cv.imshow('dilated boston', dilated)
+
+    cv.imshow('Thresh',thresh)
 
     cv.imshow('video',frame)
 
