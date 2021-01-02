@@ -1,4 +1,5 @@
 import cv2 as cv
+import numpy as np
 
 #READING IMAGES
 # img = cv.imread('./Resources/Photos/cat.jpg')
@@ -17,11 +18,16 @@ while True:
     blur = cv.medianBlur(gray, 3)
     canny= cv.Canny(blur, 125, 125)
     dilated = cv.dilate(canny,(7,7),iterations=3)
+    
     ret, thresh = cv.threshold(gray,125,255,cv.THRESH_BINARY)
+
+    lap = cv.Laplacian(gray, cv.CV_64F)
+    lap = np.uint8(np.absolute(lap))
+
 
     cv.imshow('dilated boston', dilated)
 
-    cv.imshow('Thresh',thresh)
+    cv.imshow('Laplacian',lap)
 
     cv.imshow('video',frame)
 
